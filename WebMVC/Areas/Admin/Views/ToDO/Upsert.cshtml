@@ -1,0 +1,128 @@
+﻿@model WS.Domain.ViewModels.ToDoVM
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+	<input asp-for="ToDo.Id" hidden />
+	@*<input asp-for="Todo.ImageUrl" hidden />*@
+
+	<div class="row">
+		<div class="col-10">
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h2 class="text-primary">@(Model.ToDo.Id!=0?"Update": "Create")  Todo</h2>
+			<hr />
+		</div>
+		@*<div asp-validation-summary="All"></div>*@
+		<div class="mb-3">
+			<label asp-for="ToDo.Title"></label>
+					<input asp-for="ToDo.Title" class="form-control" />
+					<span asp-validation-for="ToDo.Title" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="ToDo.Description"></label>
+			<textarea asp-for="ToDo.Description" rows="3" class="form-control"></textarea>
+					<span asp-validation-for="ToDo.Description" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+					<label asp-for="ToDo.Point"></label>
+					<input asp-for="ToDo.Point" class="form-control" />
+					<span asp-validation-for="ToDo.Point" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+					<label asp-for="ToDo.Code"></label>
+					<input asp-for="ToDo.Code" class="form-control" />
+					<span asp-validation-for="ToDo.Code" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+			<label asp-for="ToDo.TaskDate"></label>
+					<input asp-for="ToDo.TaskDate" class="form-control" />
+					<span asp-validation-for="ToDo.TaskDate" class="text-danger"></span>
+		</div>
+		<div class="mb-3 col-6">
+					@*<label asp-for="Todo.Price"></label>
+			<input asp-for="Todo.Price" class="form-control" />
+			<span asp-validation-for="Todo.Price" class="text-danger"></span>*@
+		</div>
+		<div class="mb-3 col-6">
+			@*<label asp-for="Todo.Price50"></label>
+					<input asp-for="Todo.Price50" class="form-control" />
+					<span asp-validation-for="Todo.Price50" class="text-danger"></span>*@
+		</div>
+		<div class="mb-3 col-6">
+					@*<label asp-for="Todo.Price100"></label>
+					<input asp-for="Todo.Price100" class="form-control" />
+					<span asp-validation-for="Todo.Price100" class="text-danger"></span>*@
+		</div>
+		<div class="mb-3">
+					@*	<label asp-for="Todo.ImageUrl"></label>
+			<input type="file" id="uploadBox" name="file" class="form-control" />*@
+		</div>
+
+		<div class="mb-3 col-6">
+			<label asp-for="ToDo.StatusId"></label>
+					<select asp-for="ToDo.StatusId" asp-items="@Model.StatusList" class="form-select">
+						<option disabled selected>--Select Status--</option>
+			</select>
+					<span asp-validation-for="ToDo.StatusId" class="text-danger"></span>
+		</div>
+
+		<div class="mb-3 col-6">
+					@*<label asp-for="Todo.CoverTypeId"></label>
+					<select asp-for="Todo.CoverTypeId" asp-items="@Model.CoverTypeList" class="form-select">
+				<option disabled selected>--Select CoverType--</option>
+			</select>
+					<span asp-validation-for="Todo.CoverTypeId" class="text-danger"></span>*@
+		</div>
+		<div class="col-12">
+			@if (Model.ToDo.Id != 0)
+			{
+				<button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+			}
+			else
+			{
+				<button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+			}
+			<a asp-controller="ToDo" asp-action="Index" class="btn btn-secondary" style="width:150px">
+				Back to List
+			</a>
+		</div>
+
+	</div>
+		</div>
+		<div class="col-2 pt-4">
+		@*	<img src="@Model.ToDo.ImageUrl"
+			width="100%" style="border-radius:5px; border:1px solid #bbb9b9" />*@
+		</div>
+	</div>
+
+	
+
+
+
+
+
+</form>
+
+@section Scripts{
+	@{
+	<partial name="_ValidationScriptsPartial" />
+	}
+<script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      toolbar_mode: 'floating',
+   });
+  
+	function ValidateInput(){
+		//if(document.getElementById("uploadBox").value==""){
+		//	Swal.fire({
+		//	  icon: 'error',
+		//	  title: 'Oops...',
+		//	  text: 'Please upload an Image!',
+		//	});
+		//	return false;
+		//}
+		return true;
+	}
+</script>
+}

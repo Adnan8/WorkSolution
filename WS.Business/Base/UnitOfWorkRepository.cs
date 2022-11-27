@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WS.Business.IRepository;
 using WS.Business.Repository;
 using WS.Data;
+using WS.Domain.Model.IdentityModel;
 
 namespace WS.Business.Base
 {
@@ -18,6 +19,7 @@ namespace WS.Business.Base
             _db = db;
             ToDo = new ToDoRepository(_db);
             ToDoHistory = new ToDoHistoryRepository(_db);
+            ToDoStatus = new ToDoStatusRepository(_db);
         }
         public IToDoHistoryRepository ToDoHistory
         {
@@ -27,9 +29,14 @@ namespace WS.Business.Base
         {
             get; private set;
         }
+        public IToDoStatusRepository ToDoStatus
+        {
+            get; private set;
+        }
         public void Save()
         {
             _db.SaveChanges();
+
         }
     }
 }

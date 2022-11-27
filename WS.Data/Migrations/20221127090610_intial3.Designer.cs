@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WS.Data;
 
@@ -11,9 +12,10 @@ using WS.Data;
 namespace WS.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221127090610_intial3")]
+    partial class intial3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,6 +228,29 @@ namespace WS.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("WS.Domain.Model.IdentityModel.ToDoStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ToDoStatus");
+                });
+
             modelBuilder.Entity("WS.Domain.Model.ToDo", b =>
                 {
                     b.Property<int>("Id")
@@ -257,25 +282,13 @@ namespace WS.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("Point")
-                        .IsRequired()
+                    b.Property<int>("Point")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StatusId")
-                        .IsRequired()
+                    b.Property<int>("StatusId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("TaskDate")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StatusId");
 
                     b.ToTable("ToDo");
                 });
@@ -318,29 +331,6 @@ namespace WS.Data.Migrations
                     b.HasIndex("ToDoId");
 
                     b.ToTable("ToDoHistory");
-                });
-
-            modelBuilder.Entity("WS.Domain.Model.ToDoStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreatedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ToDoStatus");
                 });
 
             modelBuilder.Entity("WS.Domain.Model.IdentityModel.ApplicationUser", b =>
@@ -415,17 +405,6 @@ namespace WS.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WS.Domain.Model.ToDo", b =>
-                {
-                    b.HasOne("WS.Domain.Model.ToDoStatus", "ToDoStatus")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ToDoStatus");
                 });
 
             modelBuilder.Entity("WS.Domain.Model.ToDoHistory", b =>

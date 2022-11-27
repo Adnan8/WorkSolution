@@ -14,6 +14,7 @@ namespace WS.Business.Base
             get;
         }
         IToDoHistoryRepository ToDoHistory { get; }
+        IToDoStatusRepository ToDoStatus { get; }
 
         void Save();
     }

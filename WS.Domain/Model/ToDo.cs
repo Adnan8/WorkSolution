@@ -13,32 +13,53 @@ namespace WS.Domain.Model
 {
     public class ToDo : BaseDomain
     {
-        [DisplayName("Description")]
-        [Required(ErrorMessage = "Description Required")]
-        [Range(1, 200, ErrorMessage = "Description must be between 1 and 200 only!!")]
-        public string Description
+        [DisplayName("Title")]
+        [Required(ErrorMessage = "Title Required")]
+        public string? Title
         {
             get; set;
         }
+
+
+        [DisplayName("Description")]
+        [Required(ErrorMessage = "Description Required")]
+        public string? Description
+        {
+            get; set;
+        }
+
+
         [DisplayName("Code")]
         [Required(ErrorMessage = "Code Required")]
-        [Range(1, 15, ErrorMessage = "Code must be between 1 and 15 only!!")]
-        public string Code
+        public string? Code
         {
             get; set;
         }
         [DisplayName("Point")]
         [Required(ErrorMessage = "Point Required")]
-        public int Point
+        public int? Point
         {
             get; set;
         }
         [DisplayName("Status")]
         [Required(ErrorMessage = "Status Required")]
-        public int StatusId
+        public int? StatusId
         {
             get; set;
         }
+
+        [DisplayName("Created Date")]
+        [Required(ErrorMessage = "Created Date Required")]
+        public DateTime? TaskDate
+        {
+            get; set;
+        }
+
+        [ValidateNever]
+        [ForeignKey("StatusId")]
+        public virtual ToDoStatus ToDoStatus { get; set; }
+
+
 
         [ValidateNever]
         [InverseProperty("Task")]

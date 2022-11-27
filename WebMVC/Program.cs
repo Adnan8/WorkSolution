@@ -8,15 +8,15 @@ using WS.Utility;
 var builder = WebApplication.CreateBuilder(args);
 
 
-
+//for Database
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
 //for identiy
-
 //builder.Services.AddDefaultIdentity<IdentityUser>()
 //    .AddEntityFrameworkStores<AppDbContext>();
+//for identiy with Role
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<AppDbContext>();
 
@@ -27,8 +27,6 @@ builder.Services.AddSingleton<IEmailSender, EmailSender>();
 // Add services to the container.
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddControllersWithViews();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +47,5 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 app.Run();

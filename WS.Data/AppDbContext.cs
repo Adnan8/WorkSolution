@@ -16,6 +16,7 @@ namespace WS.Data
         {
         }
         public DbSet<ToDo> ToDo { get; set; }
+        public DbSet<ToDoStatus> ToDoStatus { get; set; }
         public DbSet<ToDoHistory> ToDoHistory { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
