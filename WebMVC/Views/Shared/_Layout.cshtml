@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using WS.Utility
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -27,12 +28,27 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if (User.IsInRole(SD.Role_Admin))
+						{
                         <li class="nav-item">
                               <a class="dropdown-item" asp-area="Admin" asp-controller="ToDo" asp-action="Index">ToDo</a>
                         </li>
                           <li class="nav-item">
                               <a class="dropdown-item" asp-area="Admin" asp-controller="Status" asp-action="Index">Status</a>
                         </li>
+                         <li class="nav-item">
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="ToDoHistory" asp-action="Index">ToDo Histroy</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.Role_Employee))
+                        {
+                            <li class="nav-item">
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="ToDo" asp-action="Index">ToDo</a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="ToDoHistory" asp-action="Index">ToDo Histroy</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />

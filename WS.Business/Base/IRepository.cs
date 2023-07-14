@@ -11,7 +11,7 @@ namespace WS.Business.Base
     {
         //T - Category
         T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true);
-        IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
+        IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] naProperties);
         void Add(T entity);
         void AddRange(IEnumerable<T> entity);
         void Remove(T entity);

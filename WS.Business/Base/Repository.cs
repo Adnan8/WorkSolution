@@ -31,23 +31,41 @@ namespace WS.Business.Base
         }
 
         //includeProp - "Category,CoverType"
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        //public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        //{
+        //    IQueryable<T> query = dbSet;
+        //    if (filter != null)
+        //    {
+        //        query = query.Where(filter);
+        //    }
+        //    if (includeProperties != null)
+        //    {
+        //        foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        //        {
+        //            query = query.Include(includeProp);
+        //        }
+        //    }
+        //    return query.ToList();
+        //}
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, params Expression<Func<T, object>>[] naProperties)
         {
-            IQueryable<T> query = dbSet;
+            IQueryable<T> dbQuery = dbSet;
+
             if (filter != null)
             {
-                query = query.Where(filter);
+                dbQuery = dbQuery.Where(filter);
             }
-            if (includeProperties != null)
-            {
-                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProp);
-                }
-            }
-            return query.ToList();
-        }
 
+            foreach (Expression<Func<T, object>> nProperty in naProperties)
+                dbQuery = dbQuery.Include<T, object>(nProperty);
+
+            if (orderBy != null)
+            {
+                dbQuery = orderBy(dbQuery);
+            }
+
+            return dbQuery.ToList();
+        }
         public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
         {
             if (tracked)

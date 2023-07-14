@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using WS.Domain.Base;
+using WS.Domain.Model.IdentityModel;
 
 namespace WS.Domain.Model
 {
@@ -34,7 +35,7 @@ namespace WS.Domain.Model
         //public int AssignedById { get; set; }
         //[ForeignKey("AssignedById")]
         //[ValidateNever]
-        //public ToDo AssignedBy { get; set; }
+        //public ApplicationUser AssignedBy { get; set; }
 
 
         //public int AssignedToId { get; set; }
